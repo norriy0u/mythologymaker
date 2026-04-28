@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythology Maker ⚡ | Forge Your Myth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="pick-mode">
+
+    <div class="pick-container">
+        <header class="pick-header">
+            <h1 class="pick-title text-gold glow-gold">MYTHOLOGY MAKER ⚡</h1>
+            <p class="pick-subtitle">Choose 3 symbols. Summon a myth.</p>
+        </header>
+
+        <!-- Selected Slots -->
+        <div class="slots-container" id="slots-container">
+            <div class="slot" data-slot="1"></div>
+            <div class="slot" data-slot="2"></div>
+            <div class="slot" data-slot="3"></div>
+        </div>
+
+        <!-- Modifiers -->
+        <div class="modifiers">
+            <div class="mod-group">
+                <h3>Nature of the Being</h3>
+                <div class="nature-toggle" id="nature-toggle">
+                    <div class="toggle-option active" data-val="God">GOD</div>
+                    <div class="toggle-option" data-val="Demon">DEMON</div>
+                </div>
+            </div>
+
+            <div class="mod-group">
+                <h3>Civilization</h3>
+                <div class="civ-selector" id="civ-selector">
+                    <div class="civ-pill active" data-civ="Ancient Indian">Indian</div>
+                    <div class="civ-pill" data-civ="Greek">Greek</div>
+                    <div class="civ-pill" data-civ="Egyptian">Egyptian</div>
+                    <div class="civ-pill" data-civ="Norse">Norse</div>
+                    <div class="civ-pill" data-civ="Aztec">Aztec</div>
+                    <div class="civ-pill" data-civ="Japanese">Japanese</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Element Grid -->
+        <div class="elements-grid" id="elements-grid">
+            <!-- Populated via JS -->
+        </div>
+
+        <!-- Action -->
+        <button id="btn-forge" class="btn-forge" disabled>FORGE THE MYTH ⚡</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

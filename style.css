@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --bg-dark: #1a0a00;
+    --parchment: #fdf6e3;
+    --parchment-dark: #e8dcc4;
+    --gold: #fbbf24;
+    --gold-glow: rgba(251, 191, 36, 0.5);
+    --red-dark: #7f1d1d;
+    --red-glow: rgba(127, 29, 29, 0.6);
+    --font-title: 'Cinzel', serif;
+    --font-body: 'EB Garamond', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.pick-mode {
+    background-color: var(--bg-dark);
+    color: var(--parchment);
+    font-family: var(--font-body);
+    background-image: radial-gradient(circle at center, rgba(127, 29, 29, 0.1) 0%, transparent 60%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+body.story-mode {
+    background-color: var(--parchment);
+    color: #2b1d0e;
+    font-family: var(--font-body);
+    /* Noise texture for parchment */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    overflow-x: hidden;
+}
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3, .cinzel {
+    font-family: var(--font-title);
+    text-transform: uppercase;
+}
+
+.text-gold { color: var(--gold); }
+.text-red { color: var(--red-dark); }
+.glow-gold { text-shadow: 0 0 15px var(--gold-glow); }
+.glow-red { text-shadow: 0 0 15px var(--red-glow); }
+
+/* --- PICK.HTML LAYOUT --- */
+.pick-container {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+.pick-header {
+    margin-bottom: 3rem;
+}
+
+.pick-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.pick-subtitle {
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* --- SLOTS --- */
+.slots-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.slot {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed rgba(251, 191, 36, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    transition: all 0.3s ease;
+    background: rgba(0,0,0,0.3);
+}
+
+.slot.filled {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 20px var(--gold-glow), inset 0 0 20px var(--gold-glow);
+    background: rgba(251, 191, 36, 0.1);
+    transform: scale(1.1);
+}
+
+/* --- GRID --- */
+.elements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.element-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.element-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(251, 191, 36, 0.6);
+    background: rgba(251, 191, 36, 0.05);
+}
+
+.element-card.selected {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--gold-glow);
+    background: rgba(251, 191, 36, 0.15);
+    transform: scale(0.95);
+}
+
+.element-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.element-name {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* --- MODIFIERS --- */
+.modifiers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    background: rgba(0,0,0,0.4);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.mod-group h3 {
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+/* Toggle */
+.nature-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.toggle-option {
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-family: var(--font-title);
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.toggle-option.active[data-val="God"] {
+    background: var(--gold);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.toggle-option.active[data-val="Demon"] {
+    background: var(--red-dark);
+    color: white;
+    box-shadow: 0 0 15px var(--red-glow);
+}
+
+/* Pills */
+.civ-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.civ-pill {
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.civ-pill:hover { border-color: var(--gold); }
+.civ-pill.active {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* Action Button */
+.btn-forge {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 1rem 3rem;
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.btn-forge:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.5);
+}
+
+.btn-forge:not(:disabled):hover {
+    background: var(--gold);
+    color: var(--bg-dark);
+    box-shadow: 0 0 30px var(--gold-glow);
+}
+
+/* --- STORY.HTML --- */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--gold);
+}
+
+.mandala {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--gold);
+    border-radius: 0 50% 50% 50%;
+    animation: spinMandala 3s linear infinite;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px var(--gold-glow);
+}
+
+@keyframes spinMandala { 100% { transform: rotate(360deg); } }
+
+.hidden { display: none !important; }
+
+/* Parallax Containers */
+.parallax-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#parallax-flames { font-size: 3rem; opacity: 0.1; }
+#parallax-stars { font-size: 1rem; opacity: 0.2; }
+
+/* Story Content */
+.story-container {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+/* Title Section */
+.story-header {
+    text-align: center;
+    margin-bottom: 6rem;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.story-header canvas {
+    margin: 2rem auto;
+    border: 8px double var(--parchment-dark);
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--bg-dark);
+}
+
+.myth-title {
+    font-size: 4rem;
+    color: var(--red-dark);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.myth-epithet {
+    font-size: 1.5rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.scroll-hint {
+    margin-top: 4rem;
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    opacity: 0.5;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* Chapters */
+.chapter {
+    margin-bottom: 6rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.chapter.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chapter h2 {
+    font-size: 2.5rem;
+    color: var(--red-dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--parchment-dark);
+    padding-bottom: 0.5rem;
+}
+
+.chapter p {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    text-align: justify;
+    margin-bottom: 1.5rem;
+}
+
+.chapter-symbol {
+    text-align: center;
+    font-size: 3rem;
+    margin: 2rem 0;
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.inline-glow {
+    font-weight: 700;
+    color: var(--red-dark);
+}
+
+/* Legacy Section */
+blockquote {
+    font-size: 1.5rem;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+    border: 2px solid var(--parchment-dark);
+    background: rgba(232, 220, 196, 0.3);
+    margin: 3rem 0;
+}
+
+.meanings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.meaning-card {
+    background: var(--parchment-dark);
+    padding: 1.5rem;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.meaning-card .icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.meaning-card p {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+}
+
+.story-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--parchment-dark);
+}
+
+.btn-story {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--red-dark);
+    color: var(--parchment);
+    text-decoration: none;
+    font-family: var(--font-title);
+    font-weight: 700;
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+.btn-story:hover {
+    background: #5a1212;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .pick-title { font-size: 2.5rem; }
+    .elements-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .slot { width: 60px; height: 60px; font-size: 1.8rem; }
+    
+    .myth-title { font-size: 3rem; }
+    .chapter p { font-size: 1.1rem; }
+    .meanings-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythology Maker | The Scroll</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="story-mode">
+
+    <!-- Loading State -->
+    <div id="loader">
+        <div class="mandala"></div>
+        <h2 class="cinzel text-gold">The Fates are weaving your myth...</h2>
+    </div>
+
+    <!-- Parallax Backgrounds -->
+    <div class="parallax-layer" id="parallax-flames"></div>
+    <div class="parallax-layer" id="parallax-stars"></div>
+
+    <div class="story-container hidden" id="story-container">
+        
+        <!-- I. Title Scroll -->
+        <section class="story-header chapter" data-chapter="0">
+            <canvas id="portrait-canvas" width="300" height="400"></canvas>
+            <h1 class="myth-title" id="myth-title"></h1>
+            <p class="myth-epithet" id="myth-epithet"></p>
+            <div class="scroll-hint">Scroll to discover the myth ↓</div>
+        </section>
+
+        <!-- II. The Origin -->
+        <section class="chapter" data-chapter="1">
+            <h2>I. The Origin</h2>
+            <p id="myth-origin"></p>
+            <div class="chapter-symbol" id="symbol-1-display"></div>
+        </section>
+
+        <!-- III. The Conflict -->
+        <section class="chapter" data-chapter="2">
+            <h2>II. The Conflict</h2>
+            <p id="myth-conflict"></p>
+            <div class="chapter-symbol" id="symbol-2-display"></div>
+        </section>
+
+        <!-- IV. The Convergence -->
+        <section class="chapter" data-chapter="3">
+            <h2>III. The Convergence</h2>
+            <p id="myth-climax"></p>
+            <div class="chapter-symbol" id="symbol-3-display"></div>
+        </section>
+
+        <!-- V. The Legacy -->
+        <section class="chapter" data-chapter="4">
+            <h2>IV. The Legacy</h2>
+            <p id="myth-resolution"></p>
+            <blockquote id="myth-moral"></blockquote>
+            
+            <div class="meanings-grid">
+                <div class="meaning-card">
+                    <span class="icon" id="meaning-icon-1"></span>
+                    <p id="meaning-text-1"></p>
+                </div>
+                <div class="meaning-card">
+                    <span class="icon" id="meaning-icon-2"></span>
+                    <p id="meaning-text-2"></p>
+                </div>
+                <div class="meaning-card">
+                    <span class="icon" id="meaning-icon-3"></span>
+                    <p id="meaning-text-3"></p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="story-footer chapter" data-chapter="5">
+            <a href="pick.html" class="btn-story">Forge Another Myth →</a>
+        </footer>
+
+    </div>
+
+    <script src="audio.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
