@@ -121,7 +121,7 @@ function setupModifiers() {
 async function initStoryMode() {
     const configStr = sessionStorage.getItem('myth_config');
     if (!configStr) {
-        window.location.href = 'pick.html';
+        window.location.href = 'index.html';
         return;
     }
     const config = JSON.parse(configStr);
