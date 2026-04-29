@@ -167,14 +167,14 @@ async function fetchMyth(config) {
         } catch (e) {
             console.warn("JSON parse failed, trying manual match");
             data = {
-                title: (text.match(/["']?title["']?\s*:\s*["']([^"']+)["']/i) || [null, "The Ancient Scroll"])[1],
-                godName: (text.match(/["']?godName["']?\s*:\s*["']([^"']+)["']/i) || [null, "The Nameless One"])[1],
-                godEpithet: (text.match(/["']?godEpithet["']?\s*:\s*["']([^"']+)["']/i) || [null, "The Awakened"])[1],
-                origin: (text.match(/["']?origin["']?\s*:\s*["']([^"']+)["']/i) || [null, "In the beginning, there was only silence until the first symbols appeared..."])[1],
-                conflict: (text.match(/["']?conflict["']?\s*:\s*["']([^"']+)["']/i) || [null, "A great darkness threatened the delicate balance of the new realm..."])[1],
-                climax: (text.match(/["']?climax["']?\s*:\s*["']([^"']+)["']/i) || [null, "In the final moment, the chosen artifacts were united, glowing with true power..."])[1],
-                resolution: (text.match(/["']?resolution["']?\s*:\s*["']([^"']+)["']/i) || [null, "The world was remade, forever scarred but ultimately saved."])[1],
-                moral: (text.match(/["']?moral["']?\s*:\s*["']([^"']+)["']/i) || [null, "Every choice weaves a thread in the tapestry of fate."])[1],
+                title: (text.match(/["']?title["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "The Ancient Scroll"])[1],
+                godName: (text.match(/["']?god(?:N|n)ame["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "The Nameless One"])[1],
+                godEpithet: (text.match(/["']?god(?:E|e)pithet["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "The Awakened"])[1],
+                origin: (text.match(/["']?origin["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "In the beginning, there was only silence until the first symbols appeared..."])[1],
+                conflict: (text.match(/["']?conflict["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "A great darkness threatened the delicate balance of the new realm..."])[1],
+                climax: (text.match(/["']?climax["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "In the final moment, the chosen artifacts were united, glowing with true power..."])[1],
+                resolution: (text.match(/["']?resolution["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "The world was remade, forever scarred but ultimately saved."])[1],
+                moral: (text.match(/["']?moral["']?\s*:\s*["']([\s\S]*?)["']\s*(?:,|})/i) || [null, "Every choice weaves a thread in the tapestry of fate."])[1],
                 symbolMeanings: { sym1: "", sym2: "", sym3: "" }
             };
         }
